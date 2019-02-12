@@ -7,6 +7,14 @@ const initialState = {
     results: []
 }
 
+const deleteResult = (state, action) => {
+    const filteredArray = state.results.filter(res => {
+        return res.id !== action.id
+    })
+    return updateObject(state, {
+        results: filteredArray
+    })
+}
 const resultReducer = (state = initialState, action) => {
     // eslint-disable-next-line
     switch (action.type) {
@@ -19,12 +27,7 @@ const resultReducer = (state = initialState, action) => {
             })
 
         case actionTypes.DELETE_RESULT:
-            const filteredArray = state.results.filter(res => {
-                return res.id !== action.id
-            })
-            return updateObject(state, {
-                results: filteredArray
-            })
+            return deleteResult(state, action)
     }
 
     return state;
